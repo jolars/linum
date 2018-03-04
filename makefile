@@ -1,4 +1,4 @@
-LIBS=libpower.so # lägg till era bibliotek
+LIBS=lib/libpower.so lib/libcomponent.so # lägg till era bibliotek
 CFLAGS=-Wall -std=c99
 CC=gcc
  
@@ -12,9 +12,9 @@ electrotest:
 	# temp: använder testpower.c som test innan vi skrivit electrotest
 	$(CC) $(CFLAGS) testpower.c -o $@ -Llib/ $(basename $(subst lib,-l,$(LIBS))) -lm -Wl,-rpath,lib/
 
-%.so: %.o
+lib/%.so: %.o
 	mkdir -p lib/
-	$(CC) $(CFLAGS) -shared -fPIC -o lib/$@ $<
+	$(CC) $(CFLAGS) -shared -fPIC -o $@ $<
 
 %.o: %.c %.h
 	$(CC) $(CFLAGS) -c -fPIC $<	
@@ -30,3 +30,5 @@ install:
 uninstall:
 	sudo rm $(addprefix /usr/lib/,$(LIBS))
 	sudo rm /usr/bin/electrotest
+
+#.PRECIOUS: %.o
