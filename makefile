@@ -9,7 +9,6 @@ all: lib electrotest
 lib: $(LIBS)
 
 electrotest:
-	# temp: använder testpower.c som test innan vi skrivit electrotest
 	$(CC) $(CFLAGS) -o $@ electrotest.c -L $(LIBS) -lm -Wl,-rpath,lib/
 
 lib/%.so: %.o
