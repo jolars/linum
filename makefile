@@ -23,12 +23,12 @@ lib/%.so: %.o
 install:
 	# "och länkar så att programmet använder de publika biblioteken"
 	# verkar inte behövas på mitt system, konstigt
-	sudo cp $(LIBS) /usr/lib
+	sudo cp $(LIBS) /usr/lib/
 	sudo cp electrotest /usr/bin/
 
 .PHONY: uninstall
 uninstall:
-	sudo rm $(addprefix /usr/lib/,$(LIBS))
+	sudo rm $(addprefix /usr/,$(LIBS))
 	sudo rm /usr/bin/electrotest
 
 #.PRECIOUS: %.o
