@@ -1,18 +1,11 @@
 #include "libresistance.h"
+#include <stdio.h>
 
 float calc_resistance(int count, char conn, float *array) {
-  int n_array = sizeof(array)/sizeof(array[0]);
-
-  // check that count matches array size
-  if (n_array != count) {
-    printf("count and array differ in size")
-    return -1;
-  }
-
   float R = 0.0; // resistance
 
-  if (conn == "P") { // parallel
-    for (int i = 0; i < n_array; ++i) {
+  if (conn == 'P') { // parallel
+    for (int i = 0; i < count; ++i) {
       if (array[i] == 0.0) {
         return 0;
       } else {
@@ -20,12 +13,12 @@ float calc_resistance(int count, char conn, float *array) {
       }
       R *= 1.0/(R*R); // invert
     }
-  } else if (conn = "S") { // serial
-    for (int i = 0; i < n_array; ++i) {
+  } else if (conn == 'S') { // serial
+    for (int i = 0; i < count; ++i) {
       R += array[i];
     }
   } else { // invalid input
-    printf("invalid value for conn")
+    printf("error: invalid value for conn\n");
     return -1;
   }
   return R;
