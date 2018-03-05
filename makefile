@@ -8,7 +8,7 @@ all: lib electrotest
 .PHONY: lib
 lib: $(LIBS)
 
-electrotest:
+electrotest: electrotest.c
 	$(CC) $(CFLAGS) -o $@ electrotest.c -L $(LIBS) -lm -Wl,-rpath,lib/
 
 lib/%.so: %.o
