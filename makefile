@@ -9,7 +9,7 @@ all: lib electrotest
 lib: $(LIBS)
 
 electrotest: electrotest.c
-	$(CC) $(CFLAGS) -o $@ electrotest.c -L $(LIBS) -lm -Wl,-rpath,lib/
+	$(CC) $(CFLAGS) -o $@ electrotest.c -Llib/ $(basename $(subst lib/lib,-l,$(LIBS))) -lm -Wl,-rpath,lib/
 
 lib/%.so: %.o
 	mkdir -p lib/
@@ -18,16 +18,21 @@ lib/%.so: %.o
 %.o: %.c %.h
 	$(CC) $(CFLAGS) -c -fPIC $<
 
+.PHONY: clean
+clean:
+	rm -rf lib
+	rm electrotest
+
 .PHONY: install
 install:
 	# "och länkar så att programmet använder de publika biblioteken"
 	# verkar inte behövas på mitt system, konstigt
-	sudo cp $(LIBS) /usr/lib/
-	sudo cp electrotest /usr/bin/
+	cp $(LIBS) /usr/lib
+	cp electrotest /usr/bin/
 
 .PHONY: uninstall
 uninstall:
-	sudo rm $(addprefix /usr/,$(LIBS))
-	sudo rm /usr/bin/electrotest
+	rm $(addprefix /usr/,$(LIBS))
+	rm /usr/bin/electrotest
 
 #.PRECIOUS: %.o
