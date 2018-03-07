@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 #include "libresistance.h"
 #include "libpower.h"
 #include "libcomponent.h"
@@ -18,7 +19,7 @@ int main() {
   scanf("%f", &volt);
   clearInputBuffer();
 
-  printf("Ange koppling [P | S]: ");
+  printf("Ange koppling [S | P]: ");
   scanf("%c", &conn);
   clearInputBuffer();
 
@@ -45,7 +46,8 @@ int main() {
 
   // compute power
   float power = calc_power_r(volt, resistance);
-  printf("Effekt:\n%.2f W\n", power);
+  // truncate before printing, so it's not rounded by printf
+  printf("Effekt:\n%.2f W\n", trunc(power*100.0)/100.0);
 
   // figure out what three resistors to use
   float* res_array = (float*) malloc(3 * sizeof(float));
