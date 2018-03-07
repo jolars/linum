@@ -28,6 +28,10 @@ int main() {
 
   // input components
   float* comp_array = (float*) malloc(n_comp * sizeof(float));
+  if (comp_array == NULL) { // check that malloc worked for comp_array
+    fprintf(stderr, "Failed to allocate memory\n");
+    exit(1);
+  }  
   for (int i = 0; i < n_comp; ++i) {
     printf("Komponent %d i ohm: ", i + 1);
     scanf("%f", &comp_array[i]);
@@ -44,7 +48,11 @@ int main() {
   printf("Effekt:\n%.2f W\n", power);
 
   // figure out what three resistors to use
-  float res_array[3];
+  float* res_array = (float*) malloc(3 * sizeof(float));
+  if (res_array == NULL) { // check that malloc worked for res_array
+    fprintf(stderr, "Failed to allocate memory\n");
+    exit(1);
+  }
   int n_res = e_resistance(resistance, res_array);
   printf("Ersättningsresistanser i E12-serien kopplade i serie:\n");
   for (int i = 0; i < n_res; ++i) {
