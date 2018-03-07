@@ -31,7 +31,7 @@ int main() {
   if (comp_array == NULL) { // check that malloc worked for comp_array
     fprintf(stderr, "Failed to allocate memory\n");
     exit(1);
-  }  
+  }
   for (int i = 0; i < n_comp; ++i) {
     printf("Komponent %d i ohm: ", i + 1);
     scanf("%f", &comp_array[i]);
@@ -58,6 +58,7 @@ int main() {
   for (int i = 0; i < n_res; ++i) {
     printf("%.0f\n", res_array[i]);
   }
+  free(res_array);
 
   return 0;
 }
