@@ -9,7 +9,7 @@ float calc_resistance(int count, char conn, float *array) {
       if (array[i] == 0.0) {
         return 0;
       } else if (array[i] < 0.0) {
-        printf("error: resistance cannot be negative\n");
+        fprintf(stderr, "resistance cannot be negative\n");
         return -1;
       } else {
         R += 1.0/array[i];
@@ -19,13 +19,13 @@ float calc_resistance(int count, char conn, float *array) {
   } else if (conn == 'S') { // serial
     for (int i = 0; i < count; ++i) {
       if (array[i] < 0.0) {
-        printf("error: resistance cannot be negative\n");
+        fprintf(stderr, "resistance cannot be negative\n");
         return -1;
       }
       R += array[i];
     }
   } else { // invalid input
-    printf("error: invalid value for conn\n");
+    fprintf(stderr, "invalid value for conn\n");
     return -1;
   }
   return R;
