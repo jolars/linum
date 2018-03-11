@@ -18,7 +18,7 @@ static float get_resistence(float in, int last)
   int i;
   int p = log10(in);
 
-  for(i = 11; in/round_to(e12[i]*pow(10, p), 2) <= comp; --i);
+  for(i = 11; in/round_to(e12[i]*pow(10, p), 2) < comp; --i);
 
   return round_to(e12[i]*pow(10, p), 2);
 }
